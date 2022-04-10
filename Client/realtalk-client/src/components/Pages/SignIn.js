@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import Copyright from '../Atoms/Copyright';
 import { useState } from 'react';
-
+import env from '../../env';
 export default function SignIn() {
 
     const [name, setName] = useState('');
@@ -16,19 +16,21 @@ export default function SignIn() {
     const handleSubmit = e => {
         e.preventDefault()
 
-        fetch('http://localhost:3001/signIn',
+        const body = JSON.stringify({
+            name,
+            surname,
+            email,
+            password,
+            agreement
+        });
+
+        fetch(env.ADDRESS + '/signIn',
             {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    name,
-                    surname,
-                    email,
-                    password,
-                    agreement
-                })
+                body
             }
         ).then(res => res.json())
             .then(body => console.log(body))

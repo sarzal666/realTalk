@@ -1,6 +1,8 @@
+const bodyParser = require('body-parser');
+const { getApp } = require('firebase-admin/app');
 const app = require('./app.js');
+const firebase = require('./firebase.js');
 
-const bodyParser = require('body-parser')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -21,7 +23,21 @@ app.get('/', (req, res) => {
 })
 
 app.post('/signIn', (req, res) => {
-  console.log(req.body);
+
+  getApp().auth(firebase).createUser({
+    email: req.body.email,
+    password: req.body.password,
+    displayName: `${req.body.name} ${req.body.surname}`,
+    agreement: req.body.agreement,
+  })
+    .then((userRecord) => {
+      // See the UserRecord reference doc for the contents of userRecord.
+      console.log('Successfully created new user:', userRecord.uid);
+      console.log(userRecord);
+    })
+    .catch((error) => {
+      console.log('Error creating new user:', error);
+    });
 
   res.json({
     result: true,
