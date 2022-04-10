@@ -3,12 +3,35 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import Copyright from '../Atoms/Copyright';
+import { useState } from 'react';
 
 export default function SignIn() {
 
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [agreement, setAgreement] = useState(false);
+
     const handleSubmit = e => {
         e.preventDefault()
-        console.log(e);
+
+        fetch('http://localhost:3001/signIn',
+            {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    surname,
+                    email,
+                    password,
+                    agreement
+                })
+            }
+        ).then(res => res.json())
+            .then(body => console.log(body))
     };
 
     return (
@@ -27,7 +50,7 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
@@ -38,6 +61,8 @@ export default function SignIn() {
                                 id="firstName"
                                 label="First Name"
                                 autoFocus
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -48,6 +73,8 @@ export default function SignIn() {
                                 label="Last Name"
                                 name="lastName"
                                 autoComplete="family-name"
+                                value={surname}
+                                onChange={(e) => setSurname(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -58,6 +85,8 @@ export default function SignIn() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -69,11 +98,13 @@ export default function SignIn() {
                                 type="password"
                                 id="password"
                                 autoComplete="new-password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                control={<Checkbox color="primary" onChange={(e) => setAgreement(!agreement)} checked={agreement} />}
                                 label="I want to receive inspiration, marketing promotions and updates via email."
                             />
                         </Grid>
