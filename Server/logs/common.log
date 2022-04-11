@@ -1,0 +1,16 @@
+{"level":"\u001b[32minfo\u001b[39m","message":"OPTIONS /signIn 200 4ms","meta":{}}
+{"level":"\u001b[32minfo\u001b[39m","message":"POST /signIn 200 629ms","meta":{}}
+undefined [undefined] [32minfo[39m: OPTIONS /signIn 200 4ms
+undefined [undefined] [32minfo[39m: POST /signIn 200 768ms
+{"level":"\u001b[32minfo\u001b[39m","message":"OPTIONS /signIn 200 5ms","meta":{}}
+{"level":"\u001b[32minfo\u001b[39m","message":"POST /signIn 200 804ms","meta":{}}
+function createFormatWrap(opts) {
+    return new Format(opts);
+  } [function createFormatWrap(opts) {
+    return new Format(opts);
+  }] [32minfo[39m: OPTIONS /signIn 200 5ms
+function createFormatWrap(opts) {
+    return new Format(opts);
+  } [function createFormatWrap(opts) {
+    return new Format(opts);
+  }] [32minfo[39m: POST /signIn 200 736ms

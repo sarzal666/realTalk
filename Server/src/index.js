@@ -2,25 +2,18 @@ const bodyParser = require('body-parser');
 const { getApp } = require('firebase-admin/app');
 const app = require('./app.js');
 const firebase = require('./firebase.js');
+const loggerMiddleware = require('./middlewares/loggerMiddleware.js');
+const corsMiddleware = require('./middlewares/corsMiddleware.js');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
-}));
+}))
 
-//for CORS policy
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Methods", "*")
-  res.header("Access-Control-Allow-Headers", "*")
+// for CORS policy
+app.use(corsMiddleware)
+app.use(loggerMiddleware)
 
-  next()
-})
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-  console.log('hit!');
-})
 
 app.post('/signIn', (req, res) => {
 
@@ -33,15 +26,20 @@ app.post('/signIn', (req, res) => {
     .then((userRecord) => {
       // See the UserRecord reference doc for the contents of userRecord.
       console.log('Successfully created new user:', userRecord.uid);
-      console.log(userRecord);
+
+      res.json({
+        result: true,
+        user: userRecord
+      })
     })
     .catch((error) => {
-      console.log('Error creating new user:', error);
+      console.log('fail');
+      res.end(JSON.stringify({
+        result: false,
+        message: error.message
+      }))
     });
 
-  res.json({
-    result: true,
-    token: 'test token'
-  });
 })
+
 
