@@ -33,7 +33,7 @@ app.post('/signin', (req, res) => {
       })
     })
     .catch((error) => {
-      console.log('fail');
+      console.log(error);
       res.end(JSON.stringify({
         result: false,
         message: error.message
