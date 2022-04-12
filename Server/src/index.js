@@ -15,7 +15,7 @@ app.use(corsMiddleware)
 app.use(loggerMiddleware)
 
 
-app.post('/signIn', (req, res) => {
+app.post('/signin', (req, res) => {
 
   getApp().auth(firebase).createUser({
     email: req.body.email,

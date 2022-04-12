@@ -5,6 +5,7 @@ import { Box } from '@mui/system';
 import Copyright from '../Atoms/Copyright';
 import { useState } from 'react';
 import env from '../../env';
+import axios from 'axios';
 export default function SignIn() {
 
     const [name, setName] = useState('');
@@ -16,24 +17,38 @@ export default function SignIn() {
     const handleSubmit = e => {
         e.preventDefault()
 
-        const body = JSON.stringify({
+        const body = {
             name,
             surname,
             email,
             password,
             agreement
-        });
+        };
 
-        fetch(env.ADDRESS + '/signIn',
-            {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body
-            }
-        ).then(res => res.json())
-            .then(body => console.log(body))
+        //TODO: use axios package
+        axios.post(env.ADDRESS + '/signin', body)
+            // fetch(env.ADDRESS + '/signnn',
+            //     {
+            //         method: "POST",
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body
+            //     }
+            // )
+            // .then(res => res.json())
+            .then(({ data }) => {
+                console.log(data);
+                if (data.result) {
+                    //login user and redirect to homepage
+                    //TODO: implement React router
+                    console.log(`created user: ${data.user.uid}`);
+                    console.log('login and redirect to /home');
+                } else {
+                    //handle error based on body.code
+                    console.log(`error: ${data.message}`);
+                }
+            })
     };
 
     return (
