@@ -1,9 +1,24 @@
 import {Container} from "@mui/material";
+import {Box} from "@mui/system";
+import {purple} from "@mui/material/colors";
 
 export default function Home() {
+    console.log(purple)
     return (
-        <Container>
-            Home component
-        </Container>
+        <Box sx={{
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column'
+        }}>
+            <Box xs={{
+                backgroundColor: purple["500"],
+                height: 50
+            }}>
+                test
+            </Box>
+            <Container>
+                Home component
+            </Container>
+        </Box>
     )
 }

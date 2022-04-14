@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client';
-import App from './App';
 import GlobalCss from './global/global.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
