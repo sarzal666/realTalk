@@ -10,9 +10,9 @@ export default function Home() {
             display: 'flex',
             flexDirection: 'column'
         }}>
-            <Box xs={{
-                backgroundColor: purple["500"],
-                height: 50
+            <Box sx={{
+                backgroundColor: purple[500],
+                height: 50,
             }}>
                 test
             </Box>
