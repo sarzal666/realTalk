@@ -36,7 +36,7 @@ export default function SignIn() {
         };
 
         //TODO: use axios package
-        axios.post(env.ADDRESS + '/signin', body)
+        axios.post(env.ADDRESS + '/signup', body)
             .then(({ data }) => {
                 setFetching(false);
 
